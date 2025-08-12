@@ -1,3 +1,4 @@
+import textwrap
 from dotenv import load_dotenv
 import os
 from google import genai
@@ -29,52 +30,38 @@ def build_prompt(
     if isinstance(reference_artists, list):
         reference_artists = ", ".join(reference_artists) if reference_artists else "none"
 
-    prompt = "Generate song lyrics based on the following details:\n\n"
-    prompt += f"- Genre: {genre or 'any'}\n"    
-    prompt += f"- Subject: {subject or 'any'}\n"
-    prompt += f"- Mood: {mood or 'neutral'}\n"
-    prompt += f"- Reference artists: {reference_artists or 'none'}\n"
-    prompt += f"- Song length: {song_length or 'medium'}\n"
-    prompt += f"- Perspective: {perspective or 'first person'}\n"
-    prompt += f"- Language: {language or 'English'}\n\n"
-    prompt += "Please create original lyrics that fit the above criteria."
+    prompt = f"""
+    You are a professional songwriter. Your task is to create completely original song lyrics that meet the exact specifications below.
 
-    prompt = "Create original song lyrics with the following specifications:\n\n"
-    
-    # Core parameters 
-    prompt += "**SONG PARAMETERS:**\n"
-    prompt += f"- Genre: {genre or 'any'}\n"
-    prompt += f"- Subject/Theme: {subject or 'neutral'}\n" 
-    prompt += f"- Stylistic Influence: {reference_artists or 'none'}\n"
-    prompt += f"- Song length: {song_length or 'medium'}\n"
-    prompt += f"- Perspective: {perspective or 'first person'}\n"
-    prompt += f"- Language: {language or 'English'}\n"
+    [SONG PARAMETERS — must be followed exactly]
+    - Genre: {genre or 'any'}
+    - Subject/Theme: {subject or 'any'}
+    - Mood/Emotion: {mood or 'neutral tone'}
+    - Stylistic Influence: {reference_artists or 'none'}
+    - Song length: {song_length or 'medium'}
+    - Perspective: {perspective or 'first person'}
+    - Language: {language or 'English'}
 
-    # Detailed instructions for better output
-    prompt += "\n**WRITING GUIDELINES:**\n"
-    prompt += "• Use vivid, concrete imagery and avoid clichés\n"
-    prompt += "• Ensure lyrics flow naturally when sung\n"
-    prompt += "• Create emotional progression throughout the song\n"
-    prompt += "• Make choruses memorable and singable\n"
-    prompt += "• Use consistent meter and natural rhythm\n"
-    prompt += "• Include internal rhymes and wordplay where appropriate\n"
-    
-    # Output format specification
-    prompt += "\n**OUTPUT FORMAT:**\n"
-    prompt += "Structure your response as:\n"
-    prompt += "[Verse 1]\n[lyrics]\n\n[Chorus]\n[lyrics]\n\n[Verse 2]\n[lyrics]\n\n[Chorus]\n[lyrics]\n\n"
-    prompt += "(Continue pattern based on specified length)\n\n"
-    
-    # Quality requirements
-    prompt += "**REQUIREMENTS:**\n"
-    prompt += "• All lyrics must be completely original\n"
-    prompt += "• Maintain thematic consistency throughout\n"
-    prompt += "• Ensure syllable counts work for singing\n"
-    prompt += "• Create a clear narrative or emotional arc\n"
-    prompt += "• End with a satisfying conclusion\n"
+    [WRITING RULES — these are strict requirements]
+    1. Use vivid, concrete imagery; avoid all clichés.
+    2. Ensure lyrics flow naturally when sung.
+    3. Create an emotional progression that matches the mood.
+    4. Make choruses memorable and easy to sing.
+    5. Maintain a consistent meter and natural rhythm.
+    6. Include internal rhymes and wordplay where appropriate.
 
-    return prompt
+    [OUTPUT FORMAT]
+    Follow a natural song structure for the chosen genre, including verses, choruses, and other sections as appropriate.”
 
+    [FINAL REQUIREMENTS — must be followed exactly]
+    - All lyrics must be completely original.
+    - Maintain thematic and mood consistency throughout.
+    - Ensure syllable counts work for singing.
+    - Create a clear narrative or emotional arc.
+    - End with a satisfying conclusion.
+    - Do not include explanations or commentary — only the lyrics.
+    """
+    return textwrap.dedent(prompt).strip()
 
 def generate_song_lyrics(client, model, genre, subject, mood, reference_artists, song_length, perspective, language):
     """
