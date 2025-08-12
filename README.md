@@ -1,56 +1,65 @@
 # 🎶 AI Song Writer 🎤
 
-AI Song Writer is a Python CLI app that uses the **Google Gemini API** to generate custom song lyrics based on your input.
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE) [![Python](https://img.shields.io/badge/Python-3.12-blue.svg)](https://www.python.org/) [![Google Gemini](https://img.shields.io/badge/Google%20Gemini-API-blue.svg)](https://ai.google.dev/)
+
+**AI Song Writer** is a Python CLI tool that uses the [Google Gemini API](https://ai.google.dev/) to generate fully original song lyrics based on your preferences. Instantly create lyrics by choosing genre, mood, subject, and more—perfect for musicians, songwriters, or anyone looking for creative inspiration!
+
+---
 
 ## ✨ Features
-- Choose **genre**, **subject**, and **mood**
-- Optionally add **reference artists** for inspiration
+- Select **genre**, **subject**, and **mood**
+- Add **reference artists** for inspiration (optional)
 - Control **song length**, **perspective**, and **language**
-- Generates fully original lyrics in seconds
+- Generates unique, high-quality lyrics in seconds
+
 
 ## 📦 Installation
 
-### 1. Clone the repository
+1. **Clone the repository**
+	```bash
+	git clone https://github.com/your-username/ai-song-writer.git
+	cd ai-song-writer
+	```
 
-```bash
-git clone https://github.com/your-username/ai-song-writer.git
-cd ai-song-writer
-```
+2. **Create a virtual environment**
+	*Windows:*
+	  ```bash
+	  python -m venv venv
+	  venv\Scripts\activate
+	  ```
+	*Mac/Linux:*
+	  ```bash
+	  python3 -m venv venv
+	  source venv/bin/activate
+	  ```
 
-### 2. Create a virtual environment
+3. **Install dependencies**
+	```bash
+	pip install -r requirements.txt
+	```
 
-```bash 
-python -m venv venv
-source venv/bin/activate   # Mac/Linux
-venv\Scripts\activate      # Windows
-```
+4. **Configure your API key and model**
+	Create a `.env` file in the project root with the following content:
+	  ```env
+	  GOOGLE_API_KEY=<your_google_gemini_api_key>
+	  AI_MODEL=models/gemini-1.5-pro
+	  ```
 
-### 3. Install dependencies
-
-```bash
-pip install -r requirements.txt
-```
-
-### 4. Create a .env file
-
-```
-GOOGLE_API_KEY=your_google_gemini_api_key
-AI_MODEL=models/gemini-1.5-pro
-```
+---
 
 ## 🚀 Usage
 
-Run the script:
+Run the app from your terminal:
 
 ```bash
-python song_writer.py
+python ai-song-writer.py
 ```
 
-Answer the questions in the terminal (they are all optional)
+You will be prompted for song details (all fields are optional):
 
 ```
 🎸 Genre (e.g. pop, rock): pop
-📝 Subject (e.g. love, heartbreak): summer romance
+💘 Subject (e.g. love, heartbreak): summer romance
 😊 Mood (e.g. happy, sad): happy
 🎤 Reference artists (comma-separated, e.g. Adele, Coldplay): Lady Gaga
 ⏳ Song length (e.g. short, medium, long): medium
@@ -58,72 +67,59 @@ Answer the questions in the terminal (they are all optional)
 🌍 Language (e.g. English, Spanish): English
 ```
 
-The AI will generate your custom song lyrics:
+The AI will generate your custom song lyrics, for example:
 
 ```
 🎉✨ Your AI-generated song lyrics are ready! 🎶📝
 
-(Verse 1)
-Sun is blearing, skin is gleaming, walking down the boardwalk bright
-Headphones on, feel the rhythm, dancing in the golden light
-Saw you laughing, ice cream melting, chocolate smeared across your face
-Suddenly the world stopped spinning, found my smile in a happy place
-
-(Pre-Chorus)
-Never thought a summer day could hold a love so brand new
-Burning with a neon glow, just me and just you
-
-(Chorus)
-This is summer love, electric buzz, like a Gaga anthem's high
-Sunglasses on, we're untouchable, beneath the turquoise sky
-Every beat is a heart attack, a rhythm only we can hear
-This summer love, ain't going back, washing away all doubt and fear
-
-(Verse 2)
-Salty kisses, ocean breezes, stealing moments hand in hand
-Building castles on the shoreline, grains of sand across the land
-Sharing secrets, late night bonfires, embers dancing in the air
-Whispered promises of forever, banishing all trace of care
-
-(Pre-Chorus)
-Never thought a summer day could hold a love so brand new
-Burning with a neon glow, just me and just you
-
-(Chorus)
-This is summer love, electric buzz, like a Gaga anthem's high
-Sunglasses on, we're untouchable, beneath the turquoise sky
-Every beat is a heart attack, a rhythm only we can hear
-This summer love, ain't going back, washing away all doubt and fear
-
-(Bridge)
-Maybe it's the heat, maybe it's the thrill
-But in this moment, I can't stand still
-Want to scream it loud, from the mountain top
-This feeling's real, and it won't stop!
-
-(Chorus)
-This is summer love, electric buzz, like a Gaga anthem's high
-Sunglasses on, we're untouchable, beneath the turquoise sky
-Every beat is a heart attack, a rhythm only we can hear
-This summer love, ain't going back, washing away all doubt and fear
-
-(Outro)
-Oh, summer love, yeah, summer love
-Forever in my heart, above, above
-This summer love, oh-oh-oh
-This summer love.
+[Verse 1]
+Chrome city, neon bleed, the rain is glass, a weeping deed
+Another night, another chase, a hunter's glare upon my face
+Heard your laughter, silver chime, a phantom pulse across the time
+Across the velvet, smoke-filled space, I saw the fire in your grace.
+...
 ```
+
+---
 
 ## ⚙️ Requirements
 
-- python 3.12+
-- python-dotenv
-- google-genai
+- Python 3.12+
+- [python-dotenv](https://pypi.org/project/python-dotenv/)
+- [google-genai](https://pypi.org/project/google-genai/)
+
+---
+
+## ⚙️ Configuration
+
+Set your Google Gemini API key and model in a `.env` file:
+
+```env
+GOOGLE_API_KEY=your_google_gemini_api_key
+AI_MODEL=models/gemini-1.5-pro
+```
+
+---
+
+## 🛠️ Troubleshooting
+
+- **Missing API key:** Make sure your `.env` file is present and contains a valid `GOOGLE_API_KEY`.
+- **Dependency errors:** Run `pip install -r requirements.txt` after activating your virtual environment.
+- **Python version issues:** Ensure you are using Python 3.12 or newer (`python --version`).
+
+---
 
 ## 📄 License
 
-[MIT License](LICENSE)
+This project is licensed under the [MIT License](LICENSE).
+
 
 ## 👥 Contributors
 
-[Alberto Pérez Dávila](https://github.com/albertopd)
+- [Alberto Pérez Dávila](https://github.com/albertopd)
+
+---
+
+<div align="center">
+	<sub>Made with ❤️ using Python & Google Gemini API</sub>
+</div>

@@ -3,8 +3,13 @@ import os
 from google import genai
 
 def build_prompt(
-    genre=None, subject=None, mood=None, reference_artists=None,
-    song_length=None, perspective=None, language=None
+    genre : str | None = None, 
+    subject : str | None = None, 
+    mood : str | None = None, 
+    reference_artists : str | list[str] | None = None,
+    song_length : str | None = None, 
+    perspective : str | None = None, 
+    language : str | None = None
 ):
     """
     Build a text prompt for the AI to generate song lyrics.
@@ -25,7 +30,7 @@ def build_prompt(
         reference_artists = ", ".join(reference_artists) if reference_artists else "none"
 
     prompt = "Generate song lyrics based on the following details:\n\n"
-    prompt += f"- Genre: {genre or 'any'}\n"
+    prompt += f"- Genre: {genre or 'any'}\n"    
     prompt += f"- Subject: {subject or 'any'}\n"
     prompt += f"- Mood: {mood or 'neutral'}\n"
     prompt += f"- Reference artists: {reference_artists or 'none'}\n"
@@ -33,6 +38,40 @@ def build_prompt(
     prompt += f"- Perspective: {perspective or 'first person'}\n"
     prompt += f"- Language: {language or 'English'}\n\n"
     prompt += "Please create original lyrics that fit the above criteria."
+
+    prompt = "Create original song lyrics with the following specifications:\n\n"
+    
+    # Core parameters 
+    prompt += "**SONG PARAMETERS:**\n"
+    prompt += f"- Genre: {genre or 'any'}\n"
+    prompt += f"- Subject/Theme: {subject or 'neutral'}\n" 
+    prompt += f"- Stylistic Influence: {reference_artists or 'none'}\n"
+    prompt += f"- Song length: {song_length or 'medium'}\n"
+    prompt += f"- Perspective: {perspective or 'first person'}\n"
+    prompt += f"- Language: {language or 'English'}\n"
+
+    # Detailed instructions for better output
+    prompt += "\n**WRITING GUIDELINES:**\n"
+    prompt += "• Use vivid, concrete imagery and avoid clichés\n"
+    prompt += "• Ensure lyrics flow naturally when sung\n"
+    prompt += "• Create emotional progression throughout the song\n"
+    prompt += "• Make choruses memorable and singable\n"
+    prompt += "• Use consistent meter and natural rhythm\n"
+    prompt += "• Include internal rhymes and wordplay where appropriate\n"
+    
+    # Output format specification
+    prompt += "\n**OUTPUT FORMAT:**\n"
+    prompt += "Structure your response as:\n"
+    prompt += "[Verse 1]\n[lyrics]\n\n[Chorus]\n[lyrics]\n\n[Verse 2]\n[lyrics]\n\n[Chorus]\n[lyrics]\n\n"
+    prompt += "(Continue pattern based on specified length)\n\n"
+    
+    # Quality requirements
+    prompt += "**REQUIREMENTS:**\n"
+    prompt += "• All lyrics must be completely original\n"
+    prompt += "• Maintain thematic consistency throughout\n"
+    prompt += "• Ensure syllable counts work for singing\n"
+    prompt += "• Create a clear narrative or emotional arc\n"
+    prompt += "• End with a satisfying conclusion\n"
 
     return prompt
 
@@ -83,24 +122,51 @@ if __name__ == "__main__":
     client = genai.Client(api_key=API_KEY)
 
     # CLI for user input
-    print("🎶🎤 Welcome to the AI Song Writer! 🎵✨\n")
+    print("\n🎶🎤 Welcome to the AI Song Writer! 🎵✨\n")
     print("Please provide the following details to generate your song lyrics (they are all optional):\n")
 
     genre = input("🎸 Genre (e.g. pop, rock): ")
-    subject = input("📝 Subject (e.g. love, heartbreak): ")
-    mood = input("😊 Mood (e.g. happy, sad): ")
-    reference_artists_input = input("🎤 Reference artists (comma-separated, e.g. Adele, Coldplay): ")
-    reference_artists = [artist.strip() for artist in reference_artists_input.split(",")] if reference_artists_input else []
+    if not genre:
+        genre = "any"
+    subject = input("💘 Subject (e.g. love, heartbreak): ")
+    if not subject:
+        subject = "any"
+    mood = input("😊 Mood (e.g. happy, sad): ") 
+    if not mood:
+        mood = "neutral"
+    reference_artists = input("🎤 Stylistic Influence (comma-separated list of artis, e.g. Madonna, Lady Gaga): ")
+    if not reference_artists:
+        reference_artists = "none"
     song_length = input("⏳ Song length (e.g. short, medium, long): ")
+    if not song_length:
+        song_length = "medium"
     perspective = input("👀 Perspective (e.g. first person, second person): ")
+    if not perspective:
+        perspective = "first person"
     language = input("🌍 Language (e.g. English, Spanish): ")
+    if not language:
+        language = "English"
 
-    print("\n⏳ Thank you! Just hum some melody while I generate your song lyrics...\n")
+    print("\nThank you! I will use the following parameters:\n")
+    print(f"🎸 Genre: {genre}")
+    print(f"💘 Subject: {subject}")
+    print(f"😊 Mood: {mood}")
+    print(f"🎤 Stylistic Influence: {reference_artists}")
+    print(f"⏳ Song Length: {song_length}")
+    print(f"👀 Perspective: {perspective}")
+    print(f"🌍 Language: {language}")
+
+    print("\n⏳ Just hum some melody while I generate your song lyrics...\n")
 
     lyrics = generate_song_lyrics(
-        client, AI_MODEL,
-        genre, subject, mood, reference_artists,
-        song_length, perspective, language
+        client, 
+        AI_MODEL,
+        genre, 
+        subject, 
+        mood, 
+        reference_artists,
+        song_length, perspective, 
+        language
     )
 
     print("\n🎉✨ Your AI-generated song lyrics are ready! 🎶📝\n")
