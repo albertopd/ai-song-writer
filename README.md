@@ -4,14 +4,11 @@
 
 **AI Song Writer** is a Python CLI tool that uses the [Google Gemini API](https://ai.google.dev/) to generate fully original song lyrics based on your preferences. Instantly create lyrics by choosing genre, mood, subject, and more—perfect for musicians, songwriters, or anyone looking for creative inspiration!
 
----
-
 ## ✨ Features
 - Select **genre**, **subject**, and **mood**
 - Add **reference artists** for inspiration (optional)
 - Control **song length**, **perspective**, and **language**
 - Generates unique, high-quality lyrics in seconds
-
 
 ## 📦 Installation
 
@@ -44,8 +41,6 @@
 	  GOOGLE_API_KEY=<your_google_gemini_api_key>
 	  AI_MODEL=models/gemini-1.5-pro
 	  ```
-
----
 
 ## 🚀 Usage
 
@@ -80,15 +75,11 @@ Across the velvet, smoke-filled space, I saw the fire in your grace.
 ...
 ```
 
----
-
-## ⚙️ Requirements
+## 📋 Requirements
 
 - Python 3.12+
 - [python-dotenv](https://pypi.org/project/python-dotenv/)
 - [google-genai](https://pypi.org/project/google-genai/)
-
----
 
 ## ⚙️ Configuration
 
@@ -99,27 +90,16 @@ GOOGLE_API_KEY=your_google_gemini_api_key
 AI_MODEL=models/gemini-1.5-pro
 ```
 
----
-
 ## 🛠️ Troubleshooting
 
 - **Missing API key:** Make sure your `.env` file is present and contains a valid `GOOGLE_API_KEY`.
 - **Dependency errors:** Run `pip install -r requirements.txt` after activating your virtual environment.
 - **Python version issues:** Ensure you are using Python 3.12 or newer (`python --version`).
 
----
-
-## 📄 License
+## 📜 License
 
 This project is licensed under the [MIT License](LICENSE).
 
-
-## 👥 Contributors
+## 👤 Author
 
 - [Alberto Pérez Dávila](https://github.com/albertopd)
-
----
-
-<div align="center">
-	<sub>Made with ❤️ using Python & Google Gemini API</sub>
-</div>
